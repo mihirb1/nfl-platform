@@ -7,15 +7,7 @@ import duckdb
 
 con = duckdb.connect("nfl.duckdb")
 con.sql("""
-    with game_totals as (
-        select game_id, SUM(yards_gained) AS total_yds
-        from plays
-        where posteam = 'BUF' and play_type in ('run', 'pass')
-        group by posteam, game_id
-    )
-    select game_id, total_yds, lag(total_yds) over (order by game_id) - total_yds as change
-    from game_totals
-    order by game_id
+    describe plays
 """).show()
 
 
